@@ -7,24 +7,25 @@ It also contains an AccountTransfer which enables transactions betweens accounts
 
 Assumes an installation of Hyperledger Composer and a a working Hyperledger Fabric runtime to deploy the business network onto
 
-Prerequisites: <n>
+Prerequisites: <br/>
 https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html
 
-Hyperledger Development Environment
+Hyperledger Development Environment: <br/>
 https://hyperledger.github.io/composer/latest/installing/development-tools.html
 
 
 Install and deploy the Business Network Archive onto the Fabric runtime from the directory where they were created <br/>
 `$ composer network install --card PeerAdmin@hlfv1 --archiveFile bitrebel@0.0.1.bna`
-
+```
 $ composer network start --networkName bitrebel --networkVersion 0.0.1 --card PeerAdmin@hlfv1 --networkAdmin admin
 --networkAdminEnrollSecret adminpw --file networkadmin.card
+```
 
-Import the network administrator identity
-$ composer card import --file networkadmin.card
+Import the network administrator identity <br/>
+`$ composer card import --file networkadmin.card`
 
-Expose a RESTful API
-$ composer-rest-server
+Expose a RESTful API <br/>
+`$ composer-rest-server`
 
-From the directory containing the angular scaffold bitrebel, deploy the Angular server
-$ npm start
+From the directory containing the angular scaffold bitrebel, deploy the Angular server <br/>
+`$ npm start`
