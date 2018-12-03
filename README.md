@@ -5,7 +5,7 @@ A POC concept application for blockchain backed banking transaction.
 The application has Customers and Accounts which can be created, editied, and deleted.
 It also contains an AccountTransfer which enables transactions betweens accounts.
 
-Assumes an installation of Hyperledger Composer and a a working Hyperledger Fabric runtime to deploy the business network onto
+Assumes an installation of Hyperledger Composer and a working Hyperledger Fabric runtime to deploy the business network onto
 
 Prerequisites: <br/>
 https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html
