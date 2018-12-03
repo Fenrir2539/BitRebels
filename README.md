@@ -14,7 +14,7 @@ Hyperledger Development Environment
 https://hyperledger.github.io/composer/latest/installing/development-tools.html
 
 
-Install and deploy the Business Network Archive onto the Fabric runtime from the directory where they were created
+Install and deploy the Business Network Archive onto the Fabric runtime from the directory where they were created <br/>
 `$ composer network install --card PeerAdmin@hlfv1 --archiveFile bitrebel@0.0.1.bna`
 
 $ composer network start --networkName bitrebel --networkVersion 0.0.1 --card PeerAdmin@hlfv1 --networkAdmin admin
