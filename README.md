@@ -1,7 +1,7 @@
 # BitRebels
 
 
-A POC concept application for blockchain backed banking transaction.
+A POC application for blockchain backed banking transaction.
 The application has Customers and Accounts which can be created, editied, and deleted.
 It also contains an AccountTransfer which enables transactions betweens accounts.
 
