@@ -7,7 +7,7 @@ It also contains an AccountTransfer which enables transactions betweens accounts
 
 Assumes an installation of Hyperledger Composer and a a working Hyperledger Fabric runtime to deploy the business network onto
 
-Prerequisites 
+Prerequisites: <n>
 https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html
 
 Hyperledger Development Environment
@@ -15,7 +15,7 @@ https://hyperledger.github.io/composer/latest/installing/development-tools.html
 
 
 Install and deploy the Business Network Archive onto the Fabric runtime from the directory where they were created
-$ composer network install --card PeerAdmin@hlfv1 --archiveFile bitrebel@0.0.1.bna
+`$ composer network install --card PeerAdmin@hlfv1 --archiveFile bitrebel@0.0.1.bna`
 
 $ composer network start --networkName bitrebel --networkVersion 0.0.1 --card PeerAdmin@hlfv1 --networkAdmin admin
 --networkAdminEnrollSecret adminpw --file networkadmin.card
