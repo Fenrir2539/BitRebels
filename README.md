@@ -31,3 +31,9 @@ Or to just expose the API with the choices made for our POC<br/>
 
 From the directory containing the angular scaffold bitrebel, deploy the Angular server <br/>
 `$ npm start`
+
+You can interact with the API at <br/>
+localhost:3200
+
+Or use the anugualr front end at
+localhost:4200
