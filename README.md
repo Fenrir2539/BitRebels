@@ -25,7 +25,7 @@ $ composer network start --networkName bitrebel --networkVersion 0.0.1 --card Pe
 
 Expose a RESTful API <br/>
 With the ability to specify options such as encryption<br/>
-`$ composer-rest-server`
+`$ composer-rest-server`<br/>
 Or to just expose the API with the choices made for our POC<br/>
 `composer-rest-server -c admin@bitrebel -n always -u true -w true`
 
