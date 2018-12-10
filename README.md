@@ -23,7 +23,7 @@ $ composer network start --networkName bitrebel --networkVersion 0.0.1 --card Pe
 --networkAdminEnrollSecret adminpw --file networkadmin.card
 ```
 
-Expose a RESTful API <br/>
+Expose a RESTful API <br/> <br/>
 With the ability to specify options such as encryption<br/>
 `$ composer-rest-server`<br/> <br/>
 Or to just expose the API with the choices made for our POC<br/>
