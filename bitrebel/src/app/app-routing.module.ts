@@ -17,17 +17,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 
-import { AccountComponent } from './Account/Account.component';
+import { CustomerAccountComponent } from './CustomerAccount/CustomerAccount.component';
 
-import { CustomerComponent } from './Customer/Customer.component';
+import { BankComponent } from './Bank/Bank.component';
 
-import { AccountTransferComponent } from './AccountTransfer/AccountTransfer.component';
+import { FundTransferComponent } from './FundTransfer/FundTransfer.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'Account', component: AccountComponent },
-  { path: 'Customer', component: CustomerComponent },
-  { path: 'AccountTransfer', component: AccountTransferComponent },
+  { path: 'CustomerAccount', component: CustomerAccountComponent },
+  { path: 'Bank', component: BankComponent },
+  { path: 'FundTransfer', component: FundTransferComponent },
   { path: '**', redirectTo: '' }
 ];
 

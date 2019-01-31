@@ -27,19 +27,9 @@
 
             
               <div class="form-group text-left">
-                <label for="from">from</label>
+                <label for="fromBank">From Bank Id</label>
                 
-                    <textarea formControlName="from" class="form-control" rows="3"></textarea>
-                
-              </div>
-            
-          
-
-            
-              <div class="form-group text-left">
-                <label for="to">to</label>
-                
-                    <textarea formControlName="to" class="form-control" rows="3"></textarea>
+                    <textarea formControlName="fromBank" class="form-control" rows="3"></textarea>
                 
               </div>
             
@@ -47,7 +37,37 @@
 
             
               <div class="form-group text-left">
-                <label for="amount">amount</label>
+                <label for="toBank">To Bank Id</label>
+                
+                    <textarea formControlName="toBank" class="form-control" rows="3"></textarea>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="fromAccount">From Account Id</label>
+                
+                    <textarea formControlName="fromAccount" class="form-control" rows="3"></textarea>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="toAccount">To Account Id</label>
+                
+                    <textarea formControlName="toAccount" class="form-control" rows="3"></textarea>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="amount">Amount</label>
                 
                   <input formControlName="amount" type="number" step='any' class="form-control">
                 
@@ -78,7 +98,7 @@
 
   <div class="row">
     <div class="col-md-12">
-        <h1 class="transaction-title" id='transactionName'>AccountTransfer</h1>
+        <h1 class="transaction-title" id='transactionName'>Fund Transfer</h1>
     </div>
   </div>
   <br>
@@ -91,15 +111,23 @@
           <ul>
             
               
-                <li><span class="attribute"><b>from</b></span></li>
+                <li><span class="attribute"><b>From Bank Id</b></span></li>
               
             
               
-                <li><span class="attribute"><b>to</b></span></li>
+                <li><span class="attribute"><b>To Bank Id</b></span></li>
               
             
               
-                <li><span class="attribute"><b>amount</b></span></li>
+                <li><span class="attribute"><b>From Account Id</b></span></li>
+              
+            
+              
+                <li><span class="attribute"><b>To Account Id</b></span></li>
+              
+            
+              
+                <li><span class="attribute"><b>Amount</b></span></li>
               
             
               

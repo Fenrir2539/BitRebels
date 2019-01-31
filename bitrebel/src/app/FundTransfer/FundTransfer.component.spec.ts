@@ -21,24 +21,24 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as sinon from 'sinon';
 import { DataService } from '../data.service';
-import { AccountTransferComponent } from './AccountTransfer.component';
-import {AccountTransferService} from './AccountTransfer.service';
+import { FundTransferComponent } from './FundTransfer.component';
+import {FundTransferService} from './FundTransfer.service';
 
-describe('AccountTransferComponent', () => {
-  let component: AccountTransferComponent;
-  let fixture: ComponentFixture<AccountTransferComponent>;
+describe('FundTransferComponent', () => {
+  let component: FundTransferComponent;
+  let fixture: ComponentFixture<FundTransferComponent>;
 
-  let mockAccountTransferService;
+  let mockFundTransferService;
   let mockDataService
 
   beforeEach(async(() => {
 
-    mockAccountTransferService = sinon.createStubInstance(AccountTransferService);
-    mockAccountTransferService.getAll.returns([]);
+    mockFundTransferService = sinon.createStubInstance(FundTransferService);
+    mockFundTransferService.getAll.returns([]);
     mockDataService = sinon.createStubInstance(DataService);
 
     TestBed.configureTestingModule({
-      declarations: [ AccountTransferComponent ],
+      declarations: [ FundTransferComponent ],
       imports: [
         BrowserModule,
         FormsModule,
@@ -46,12 +46,12 @@ describe('AccountTransferComponent', () => {
         HttpModule
       ],
       providers: [
-        {provide: AccountTransferService, useValue: mockAccountTransferService },
+        {provide: FundTransferService, useValue: mockFundTransferService },
         {provide: DataService, useValue: mockDataService },
       ]
     });
 
-    fixture = TestBed.createComponent(AccountTransferComponent);
+    fixture = TestBed.createComponent(FundTransferComponent);
     component = fixture.componentInstance;
 
   }));

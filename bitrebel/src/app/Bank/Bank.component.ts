@@ -14,33 +14,34 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AccountService } from './Account.service';
+import { BankService } from './Bank.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './Account.component.html',
-  styleUrls: ['./Account.component.css'],
-  providers: [AccountService]
+  selector: 'app-bank',
+  templateUrl: './Bank.component.html',
+  styleUrls: ['./Bank.component.css'],
+  providers: [BankService]
 })
-export class AccountComponent implements OnInit {
+export class BankComponent implements OnInit {
 
   myForm: FormGroup;
 
-  private allAssets;
-  private asset;
+  private allParticipants;
+  private participant;
   private currentId;
   private errorMessage;
 
-  accountId = new FormControl('', Validators.required);
-  owner = new FormControl('', Validators.required);
-  balance = new FormControl('', Validators.required);
+  bankId = new FormControl('', Validators.required);
+  bankName = new FormControl('', Validators.required);
+  customerAccounts = new FormControl('', Validators.required);
 
-  constructor(public serviceAccount: AccountService, fb: FormBuilder) {
+
+  constructor(public serviceBank: BankService, fb: FormBuilder) {
     this.myForm = fb.group({
-      accountId: this.accountId,
-      owner: this.owner,
-      balance: this.balance
+      bankId: this.bankId,
+      bankName: this.bankName,
+      customerAccounts: this.customerAccounts
     });
   };
 
@@ -50,21 +51,20 @@ export class AccountComponent implements OnInit {
 
   loadAll(): Promise<any> {
     const tempList = [];
-    return this.serviceAccount.getAll()
+    return this.serviceBank.getAll()
     .toPromise()
     .then((result) => {
       this.errorMessage = null;
-      result.forEach(asset => {
-        tempList.push(asset);
+      result.forEach(participant => {
+        tempList.push(participant);
       });
-      this.allAssets = tempList;
+      this.allParticipants = tempList;
     })
     .catch((error) => {
       if (error === 'Server error') {
         this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
       } else if (error === '404 - Not Found') {
         this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
-      } else {
         this.errorMessage = error;
       }
     });
@@ -72,7 +72,7 @@ export class AccountComponent implements OnInit {
 
 	/**
    * Event handler for changing the checked state of a checkbox (handles array enumeration values)
-   * @param {String} name - the name of the asset field to update
+   * @param {String} name - the name of the participant field to update
    * @param {any} value - the enumeration value for which to toggle the checked state
    */
   changeArrayValue(name: string, value: any): void {
@@ -86,58 +86,58 @@ export class AccountComponent implements OnInit {
 
 	/**
 	 * Checkbox helper, determining whether an enumeration value should be selected or not (for array enumeration values
-   * only). This is used for checkboxes in the asset updateDialog.
-   * @param {String} name - the name of the asset field to check
+   * only). This is used for checkboxes in the participant updateDialog.
+   * @param {String} name - the name of the participant field to check
    * @param {any} value - the enumeration value to check for
-   * @return {Boolean} whether the specified asset field contains the provided value
+   * @return {Boolean} whether the specified participant field contains the provided value
    */
   hasArrayValue(name: string, value: any): boolean {
     return this[name].value.indexOf(value) !== -1;
   }
 
-  addAsset(form: any): Promise<any> {
-    this.asset = {
-      $class: 'bitrebel.Account',
-      'accountId': this.accountId.value,
-      'owner': this.owner.value,
-      'balance': this.balance.value
+  addParticipant(form: any): Promise<any> {
+    this.participant = {
+      $class: 'bitrebel.Bank',
+      'bankId': this.bankId.value,
+      'bankName': this.bankName.value,
+      'customerAccounts': this.customerAccounts.value
     };
 
     this.myForm.setValue({
-      'accountId': null,
-      'owner': null,
-      'balance': null
+      'bankId': null,
+      'bankName': null,
+      'customerAccounts': null
     });
 
-    return this.serviceAccount.addAsset(this.asset)
+    return this.serviceBank.addParticipant(this.participant)
     .toPromise()
     .then(() => {
       this.errorMessage = null;
       this.myForm.setValue({
-        'accountId': null,
-        'owner': null,
-        'balance': null
+        'bankId': null,
+        'bankName': null,
+        'customerAccounts': null
       });
-      this.loadAll();
+      this.loadAll(); 
     })
     .catch((error) => {
       if (error === 'Server error') {
-          this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
       } else {
-          this.errorMessage = error;
+        this.errorMessage = error;
       }
     });
   }
 
 
-  updateAsset(form: any): Promise<any> {
-    this.asset = {
-      $class: 'bitrebel.Account',
-      'owner': this.owner.value,
-      'balance': this.balance.value
+   updateParticipant(form: any): Promise<any> {
+    this.participant = {
+      $class: 'bitrebel.Bank',
+      'bankName': this.bankName.value,
+      'customerAccounts': this.customerAccounts.value
     };
 
-    return this.serviceAccount.updateAsset(form.get('accountId').value, this.asset)
+    return this.serviceBank.updateParticipant(form.get('bankId').value, this.participant)
     .toPromise()
     .then(() => {
       this.errorMessage = null;
@@ -155,9 +155,9 @@ export class AccountComponent implements OnInit {
   }
 
 
-  deleteAsset(): Promise<any> {
+  deleteParticipant(): Promise<any> {
 
-    return this.serviceAccount.deleteAsset(this.currentId)
+    return this.serviceBank.deleteParticipant(this.currentId)
     .toPromise()
     .then(() => {
       this.errorMessage = null;
@@ -180,36 +180,35 @@ export class AccountComponent implements OnInit {
 
   getForm(id: any): Promise<any> {
 
-    return this.serviceAccount.getAsset(id)
+    return this.serviceBank.getparticipant(id)
     .toPromise()
     .then((result) => {
       this.errorMessage = null;
       const formObject = {
-        'accountId': null,
-        'owner': null,
-        'balance': null
+        'bankId': null,
+        'bankName': null,
+        'customerAccounts': null
       };
 
-      if (result.accountId) {
-        formObject.accountId = result.accountId;
+      if (result.bankId) {
+        formObject.bankId = result.bankId;
       } else {
-        formObject.accountId = null;
+        formObject.bankId = null;
       }
 
-      if (result.owner) {
-        formObject.owner = result.owner;
+      if (result.bankName) {
+        formObject.bankName = result.bankName;
       } else {
-        formObject.owner = null;
+        formObject.bankName = null;
       }
 
-      if (result.balance) {
-        formObject.balance = result.balance;
+      if (result.customerAccounts) {
+        formObject.customerAccounts = result.customerAccounts;
       } else {
-        formObject.balance = null;
+        formObject.customerAccounts = null;
       }
 
       this.myForm.setValue(formObject);
-
     })
     .catch((error) => {
       if (error === 'Server error') {
@@ -220,14 +219,14 @@ export class AccountComponent implements OnInit {
         this.errorMessage = error;
       }
     });
+
   }
 
   resetForm(): void {
     this.myForm.setValue({
-      'accountId': null,
-      'owner': null,
-      'balance': null
-      });
+      'bankId': null,
+      'bankName': null,
+      'customerAccounts': null
+    });
   }
-
 }

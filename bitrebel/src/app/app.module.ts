@@ -21,19 +21,19 @@ import { DataService } from './data.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
-import { AccountComponent } from './Account/Account.component';
+import { CustomerAccountComponent } from './CustomerAccount/CustomerAccount.component';
 
-import { CustomerComponent } from './Customer/Customer.component';
+import { BankComponent } from './Bank/Bank.component';
 
-import { AccountTransferComponent } from './AccountTransfer/AccountTransfer.component';
+import { FundTransferComponent } from './FundTransfer/FundTransfer.component';
 
   @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AccountComponent,
-    CustomerComponent,
-    AccountTransferComponent
+    CustomerAccountComponent,
+    BankComponent,
+    FundTransferComponent
   ],
   imports: [
     BrowserModule,

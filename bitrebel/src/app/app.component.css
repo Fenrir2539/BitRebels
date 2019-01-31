@@ -19,13 +19,13 @@
 
 .navbar {
     border-radius: 0px;
-    background: #F3F3F3;
+    background: #01112B;
     border: none;
 }
 
 .navbar-header {
-    margin-top: 40px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .navbar-brand {
@@ -54,17 +54,17 @@
 
 .navbar-nav > a {
     font-size: 14px;
-    color: #343C41;
+    color: #09f8c4;
     letter-spacing: 0.2px;
 }
 
 .navbar-nav > li:hover {
-    background-color: #fff;
+    background-color: #000; /* tab box hover color */
     color: #000;
 }
 
 .navbar-nav > li > a {
-    color: #000;
+    color: #fff; /* inactive color */
     padding: 10px;
     font-weight: bold;
 }
@@ -74,12 +74,12 @@
 }
 
 .navbar-nav > li:hover > a {
-    color: #000;
+    color: #09f8c4; /* dropdown hover color */
 }
 
 .navbar-nav .active > a {
-    background-color: #fff;
-    color: #6C4CC4 !important;
+    background-color: #01112B; /* Tab box color */
+    color: #09f8c4 !important; /*Active tab color */
 }
 
 .dropdown-menu {
@@ -106,7 +106,8 @@
 .dropdown-menu > li > a {
     padding: 6px 12px;
     font-size: 14px;
-    color: #343C41;
+	font-weight: bold;
+    color: #000;
     letter-spacing: 0.2px;
     line-height: 30px;
 }
@@ -130,7 +131,7 @@
     background-color: #F3ECFE;
 }
 .dropdown-menu > li > a:visited {
-    background-color: #F3ECFE;
+    background-color: #fff;
 }
 
 .dropdown:hover .dropdown-menu {

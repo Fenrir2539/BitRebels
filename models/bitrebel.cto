@@ -1,17 +1,24 @@
 namespace bitrebel
 
-asset Account identified by accountId {
-o String accountId
---> Customer owner
-o Double balance
+participant Bank identified by bankId {
+  o String bankId
+  o String bankName
+  --> CustomerAccount[] customerAccounts
 }
-participant Customer identified by customerId {
-o String customerId
-o String firstName
-o String lastName
+
+asset CustomerAccount identified by accountId {
+  o String accountId
+  o String firstName
+  o String lastName
+  o Double accountBalance
+  --> Bank bankId
 }
-transaction AccountTransfer {
---> Account from
---> Account to
-o Double amount
+
+transaction FundTransfer {
+ --> Bank fromBank
+ --> Bank toBank
+ --> CustomerAccount fromAccount
+ --> CustomerAccount toAccount
+ o Double amount
 }
+

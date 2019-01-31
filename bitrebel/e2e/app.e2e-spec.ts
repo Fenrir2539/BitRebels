@@ -31,13 +31,13 @@ describe('Starting tests for bitrebel', function() {
     })
   });
 
-  it('network-name should be bitrebel@0.0.1',() => {
+  it('network-name should be bitrebel@0.0.2',() => {
     element(by.css('.network-name')).getWebElement()
     .then((webElement) => {
       return webElement.getText();
     })
     .then((txt) => {
-      expect(txt).toBe('bitrebel@0.0.1.bna');
+      expect(txt).toBe('bitrebel@0.0.2.bna');
     });
   });
 
@@ -52,39 +52,39 @@ describe('Starting tests for bitrebel', function() {
   });
 
   
-    it('Account component should be loadable',() => {
-      page.navigateTo('/Account');
+    it('CustomerAccount component should be loadable',() => {
+      page.navigateTo('/CustomerAccount');
       browser.findElement(by.id('assetName'))
       .then((assetName) => {
         return assetName.getText();
       })
       .then((txt) => {
-        expect(txt).toBe('Account');
+        expect(txt).toBe('CustomerAccount');
       });
     });
 
-    it('Account table should have 4 columns',() => {
-      page.navigateTo('/Account');
+    it('CustomerAccount table should have 6 columns',() => {
+      page.navigateTo('/CustomerAccount');
       element.all(by.css('.thead-cols th')).then(function(arr) {
-        expect(arr.length).toEqual(4); // Addition of 1 for 'Action' column
+        expect(arr.length).toEqual(6); // Addition of 1 for 'Action' column
       });
     });
   
 
   
-    it('Customer component should be loadable',() => {
-      page.navigateTo('/Customer');
+    it('Bank component should be loadable',() => {
+      page.navigateTo('/Bank');
       browser.findElement(by.id('participantName'))
       .then((participantName) => {
         return participantName.getText();
       })
       .then((txt) => {
-        expect(txt).toBe('Customer');
+        expect(txt).toBe('Bank');
       });
     });
 
-    it('Customer table should have 4 columns',() => {
-      page.navigateTo('/Customer');
+    it('Bank table should have 4 columns',() => {
+      page.navigateTo('/Bank');
       element.all(by.css('.thead-cols th')).then(function(arr) {
         expect(arr.length).toEqual(4); // Addition of 1 for 'Action' column
       });
@@ -92,14 +92,14 @@ describe('Starting tests for bitrebel', function() {
   
 
   
-    it('AccountTransfer component should be loadable',() => {
-      page.navigateTo('/AccountTransfer');
+    it('FundTransfer component should be loadable',() => {
+      page.navigateTo('/FundTransfer');
       browser.findElement(by.id('transactionName'))
       .then((transactionName) => {
         return transactionName.getText();
       })
       .then((txt) => {
-        expect(txt).toBe('AccountTransfer');
+        expect(txt).toBe('FundTransfer');
       });
     });
   

@@ -12,17 +12,16 @@
  limitations under the License.
 -->
 <nav class="navbar navbar-inverse">
+	<img src = "assets/images/logo.jpg" />
     <div class="container-fluid">
       <div class="navbar-header">
-        <p class="network-name">bitrebel@0.0.1.bna</p>
-        <p class="navbar-brand">bitrebel</p>
       </div>
       <ul class="nav navbar-nav">
         <li class="dropdown active">
             <a class="dropdown-toggle" data-toggle="dropdown">Assets</a>
             <ul class="dropdown-menu scrollable-menu">
               
-              <li><a [routerLink]="['/Account']">Account</a></li>
+              <li><a [routerLink]="['/CustomerAccount']">CustomerAccount</a></li>
               
             </ul>
         </li>
@@ -30,7 +29,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown">Participants</a>
           <ul class="dropdown-menu scrollable-menu">
             
-            <li><a [routerLink]="['/Customer']">Customer</a></li>
+            <li><a [routerLink]="['/Bank']">Bank</a></li>
             
           </ul>
       </li>
@@ -38,7 +37,7 @@
         <a class="dropdown-toggle" data-toggle="dropdown">Transactions</a>
         <ul class="dropdown-menu scrollable-menu">
           
-          <li><a [routerLink]="['/AccountTransfer']">AccountTransfer</a></li>
+          <li><a [routerLink]="['/FundTransfer']">FundTransfer</a></li>
           
         </ul>
     </li>

@@ -14,38 +14,37 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AccountTransferService } from './AccountTransfer.service';
+import { CustomerAccountService } from './CustomerAccount.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-  selector: 'app-accounttransfer',
-  templateUrl: './AccountTransfer.component.html',
-  styleUrls: ['./AccountTransfer.component.css'],
-  providers: [AccountTransferService]
+  selector: 'app-customeraccount',
+  templateUrl: './CustomerAccount.component.html',
+  styleUrls: ['./CustomerAccount.component.css'],
+  providers: [CustomerAccountService]
 })
-export class AccountTransferComponent implements OnInit {
+export class CustomerAccountComponent implements OnInit {
 
   myForm: FormGroup;
 
-  private allTransactions;
-  private Transaction;
+  private allAssets;
+  private asset;
   private currentId;
   private errorMessage;
 
-  from = new FormControl('', Validators.required);
-  to = new FormControl('', Validators.required);
-  amount = new FormControl('', Validators.required);
-  transactionId = new FormControl('', Validators.required);
-  timestamp = new FormControl('', Validators.required);
+  accountId = new FormControl('', Validators.required);
+  firstName = new FormControl('', Validators.required);
+  lastName = new FormControl('', Validators.required);
+  accountBalance = new FormControl('', Validators.required);
+  bankId = new FormControl('', Validators.required);
 
-
-  constructor(private serviceAccountTransfer: AccountTransferService, fb: FormBuilder) {
+  constructor(public serviceCustomerAccount: CustomerAccountService, fb: FormBuilder) {
     this.myForm = fb.group({
-      from: this.from,
-      to: this.to,
-      amount: this.amount,
-      transactionId: this.transactionId,
-      timestamp: this.timestamp
+      accountId: this.accountId,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      accountBalance: this.accountBalance,
+      bankId: this.bankId
     });
   };
 
@@ -55,14 +54,14 @@ export class AccountTransferComponent implements OnInit {
 
   loadAll(): Promise<any> {
     const tempList = [];
-    return this.serviceAccountTransfer.getAll()
+    return this.serviceCustomerAccount.getAll()
     .toPromise()
     .then((result) => {
       this.errorMessage = null;
-      result.forEach(transaction => {
-        tempList.push(transaction);
+      result.forEach(asset => {
+        tempList.push(asset);
       });
-      this.allTransactions = tempList;
+      this.allAssets = tempList;
     })
     .catch((error) => {
       if (error === 'Server error') {
@@ -77,7 +76,7 @@ export class AccountTransferComponent implements OnInit {
 
 	/**
    * Event handler for changing the checked state of a checkbox (handles array enumeration values)
-   * @param {String} name - the name of the transaction field to update
+   * @param {String} name - the name of the asset field to update
    * @param {any} value - the enumeration value for which to toggle the checked state
    */
   changeArrayValue(name: string, value: any): void {
@@ -91,85 +90,90 @@ export class AccountTransferComponent implements OnInit {
 
 	/**
 	 * Checkbox helper, determining whether an enumeration value should be selected or not (for array enumeration values
-   * only). This is used for checkboxes in the transaction updateDialog.
-   * @param {String} name - the name of the transaction field to check
+   * only). This is used for checkboxes in the asset updateDialog.
+   * @param {String} name - the name of the asset field to check
    * @param {any} value - the enumeration value to check for
-   * @return {Boolean} whether the specified transaction field contains the provided value
+   * @return {Boolean} whether the specified asset field contains the provided value
    */
   hasArrayValue(name: string, value: any): boolean {
     return this[name].value.indexOf(value) !== -1;
   }
 
-  addTransaction(form: any): Promise<any> {
-    this.Transaction = {
-      $class: 'bitrebel.AccountTransfer',
-      'from': this.from.value,
-      'to': this.to.value,
-      'amount': this.amount.value,
-      'transactionId': this.transactionId.value,
-      'timestamp': this.timestamp.value
+  addAsset(form: any): Promise<any> {
+    this.asset = {
+      $class: 'bitrebel.CustomerAccount',
+      'accountId': this.accountId.value,
+      'firstName': this.firstName.value,
+      'lastName': this.lastName.value,
+      'accountBalance': this.accountBalance.value,
+      'bankId': this.bankId.value
     };
 
     this.myForm.setValue({
-      'from': null,
-      'to': null,
-      'amount': null,
-      'transactionId': null,
-      'timestamp': null
+      'accountId': null,
+      'firstName': null,
+      'lastName': null,
+      'accountBalance': null,
+      'bankId': null
     });
 
-    return this.serviceAccountTransfer.addTransaction(this.Transaction)
+    return this.serviceCustomerAccount.addAsset(this.asset)
     .toPromise()
     .then(() => {
       this.errorMessage = null;
       this.myForm.setValue({
-        'from': null,
-        'to': null,
-        'amount': null,
-        'transactionId': null,
-        'timestamp': null
+        'accountId': null,
+        'firstName': null,
+        'lastName': null,
+        'accountBalance': null,
+        'bankId': null
       });
+      this.loadAll();
     })
     .catch((error) => {
       if (error === 'Server error') {
-        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+          this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
       } else {
-        this.errorMessage = error;
+          this.errorMessage = error;
       }
     });
   }
 
-  updateTransaction(form: any): Promise<any> {
-    this.Transaction = {
-      $class: 'bitrebel.AccountTransfer',
-      'from': this.from.value,
-      'to': this.to.value,
-      'amount': this.amount.value,
-      'timestamp': this.timestamp.value
+
+  updateAsset(form: any): Promise<any> {
+    this.asset = {
+      $class: 'bitrebel.CustomerAccount',
+      'firstName': this.firstName.value,
+      'lastName': this.lastName.value,
+      'accountBalance': this.accountBalance.value,
+      'bankId': this.bankId.value
     };
 
-    return this.serviceAccountTransfer.updateTransaction(form.get('transactionId').value, this.Transaction)
+    return this.serviceCustomerAccount.updateAsset(form.get('accountId').value, this.asset)
     .toPromise()
     .then(() => {
       this.errorMessage = null;
+      this.loadAll();
     })
     .catch((error) => {
       if (error === 'Server error') {
         this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
       } else if (error === '404 - Not Found') {
-      this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+        this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
       } else {
         this.errorMessage = error;
       }
     });
   }
 
-  deleteTransaction(): Promise<any> {
 
-    return this.serviceAccountTransfer.deleteTransaction(this.currentId)
+  deleteAsset(): Promise<any> {
+
+    return this.serviceCustomerAccount.deleteAsset(this.currentId)
     .toPromise()
     .then(() => {
       this.errorMessage = null;
+      this.loadAll();
     })
     .catch((error) => {
       if (error === 'Server error') {
@@ -188,46 +192,46 @@ export class AccountTransferComponent implements OnInit {
 
   getForm(id: any): Promise<any> {
 
-    return this.serviceAccountTransfer.getTransaction(id)
+    return this.serviceCustomerAccount.getAsset(id)
     .toPromise()
     .then((result) => {
       this.errorMessage = null;
       const formObject = {
-        'from': null,
-        'to': null,
-        'amount': null,
-        'transactionId': null,
-        'timestamp': null
+        'accountId': null,
+        'firstName': null,
+        'lastName': null,
+        'accountBalance': null,
+        'bankId': null
       };
 
-      if (result.from) {
-        formObject.from = result.from;
+      if (result.accountId) {
+        formObject.accountId = result.accountId;
       } else {
-        formObject.from = null;
+        formObject.accountId = null;
       }
 
-      if (result.to) {
-        formObject.to = result.to;
+      if (result.firstName) {
+        formObject.firstName = result.firstName;
       } else {
-        formObject.to = null;
+        formObject.firstName = null;
       }
 
-      if (result.amount) {
-        formObject.amount = result.amount;
+      if (result.lastName) {
+        formObject.lastName = result.lastName;
       } else {
-        formObject.amount = null;
+        formObject.lastName = null;
       }
 
-      if (result.transactionId) {
-        formObject.transactionId = result.transactionId;
+      if (result.accountBalance) {
+        formObject.accountBalance = result.accountBalance;
       } else {
-        formObject.transactionId = null;
+        formObject.accountBalance = null;
       }
 
-      if (result.timestamp) {
-        formObject.timestamp = result.timestamp;
+      if (result.bankId) {
+        formObject.bankId = result.bankId;
       } else {
-        formObject.timestamp = null;
+        formObject.bankId = null;
       }
 
       this.myForm.setValue(formObject);
@@ -237,7 +241,7 @@ export class AccountTransferComponent implements OnInit {
       if (error === 'Server error') {
         this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
       } else if (error === '404 - Not Found') {
-      this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+        this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
       } else {
         this.errorMessage = error;
       }
@@ -246,11 +250,12 @@ export class AccountTransferComponent implements OnInit {
 
   resetForm(): void {
     this.myForm.setValue({
-      'from': null,
-      'to': null,
-      'amount': null,
-      'transactionId': null,
-      'timestamp': null
-    });
+      'accountId': null,
+      'firstName': null,
+      'lastName': null,
+      'accountBalance': null,
+      'bankId': null
+      });
   }
+
 }

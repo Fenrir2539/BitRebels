@@ -21,25 +21,25 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import * as sinon from 'sinon';
 import { DataService } from '../data.service';
-import { AccountComponent } from './Account.component';
-import { AccountService } from './Account.service';
-import { Observable } from 'rxjs'
+import { BankComponent } from './Bank.component';
+import { BankService } from './Bank.service';
+import { Observable } from 'rxjs';
 
-describe('AccountComponent', () => {
-  let component: AccountComponent;
-  let fixture: ComponentFixture<AccountComponent>;
+describe('BankComponent', () => {
+  let component: BankComponent;
+  let fixture: ComponentFixture<BankComponent>;
 
-  let mockAccountService;
+  let mockBankService;
   let mockDataService
 
   beforeEach(async(() => {
 
-    mockAccountService = sinon.createStubInstance(AccountService);
-    mockAccountService.getAll.returns([]);
+    mockBankService = sinon.createStubInstance(BankService);
+    mockBankService.getAll.returns([]);
     mockDataService = sinon.createStubInstance(DataService);
 
     TestBed.configureTestingModule({
-      declarations: [ AccountComponent ],
+      declarations: [ BankComponent ],
       imports: [
         BrowserModule,
         FormsModule,
@@ -47,12 +47,12 @@ describe('AccountComponent', () => {
         HttpModule
       ],
       providers: [
-        {provide: AccountService, useValue: mockAccountService },
+        {provide: BankService, useValue: mockBankService },
         {provide: DataService, useValue: mockDataService },
       ]
     });
 
-    fixture = TestBed.createComponent(AccountComponent);
+    fixture = TestBed.createComponent(BankComponent);
     component = fixture.componentInstance;
 
   }));
@@ -61,35 +61,35 @@ describe('AccountComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should update the table when a Account is added', fakeAsync(() => {
+  it('should update the table when a Bank is added', fakeAsync(() => {
     let loadAllSpy = sinon.stub(component, 'loadAll');
-    sinon.stub(component.serviceAccount, 'addAsset').returns(new Observable<any>(observer => {
+    sinon.stub(component.serviceBank, 'addParticipant').returns(new Observable(observer => {
       observer.next('');
       observer.complete();
     }));
 
-    component.addAsset({});
+    component.addParticipant({});
 
     tick();
-    
+
     expect(loadAllSpy.callCount).toBe(1);
 
     loadAllSpy.restore();
   }));
 
-  it('should update the table when a Account is updated', fakeAsync(() => {
+  it('should update the table when a Bank is updated', fakeAsync(() => {
     let loadAllSpy = sinon.stub(component, 'loadAll');
-    sinon.stub(component.serviceAccount, 'updateAsset').returns(new Observable<any>(observer => {
+    sinon.stub(component.serviceBank, 'updateParticipant').returns(new Observable(observer => {
       observer.next('');
       observer.complete();
     }));
 
     // mock form to be passed to the update function
     let mockForm = new FormGroup({
-      accountId: new FormControl('id')
+      bankId: new FormControl('id')
     });
-
-    component.updateAsset(mockForm);
+    
+    component.updateParticipant(mockForm);
 
     tick();
 
@@ -97,23 +97,21 @@ describe('AccountComponent', () => {
 
     loadAllSpy.restore();
   }));
-
-  it('should update the table when a Account is deleted', fakeAsync(() => {
+  
+  it('should update the table when a Bank is deleted', fakeAsync(() => {
     let loadAllSpy = sinon.stub(component, 'loadAll');
-    sinon.stub(component.serviceAccount, 'deleteAsset').returns(new Observable<any>(observer => {
+    sinon.stub(component.serviceBank, 'deleteParticipant').returns(new Observable(observer => {
       observer.next('');
       observer.complete();
     }));
 
-    component.setId('id');
-    
-    component.deleteAsset();
+    component.deleteParticipant();
 
     tick();
 
     expect(loadAllSpy.callCount).toBe(1);
 
     loadAllSpy.restore();
-  }));  
+  }));
 
 });

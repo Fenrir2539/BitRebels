@@ -15,36 +15,37 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
-import { Customer } from '../bitrebel';
+import { FundTransfer } from '../bitrebel';
 import 'rxjs/Rx';
 
 // Can be injected into a constructor
 @Injectable()
-export class CustomerService {
+export class FundTransferService {
 
-  private NAMESPACE = 'bitrebel.Customer';
+  private NAMESPACE = 'bitrebel.FundTransfer';
 
-  constructor(private dataService: DataService<Customer>) {
+  constructor(private dataService: DataService<FundTransfer>) {
   };
 
-  public getAll(): Observable<Customer[]> {
-    return this.dataService.getAll(this.NAMESPACE);
+  public getAll(): Observable<FundTransfer[]> {
+      return this.dataService.getAll(this.NAMESPACE);
   }
 
-  public getparticipant(id: any): Observable<Customer> {
+  public getTransaction(id: any): Observable<FundTransfer> {
     return this.dataService.getSingle(this.NAMESPACE, id);
   }
 
-  public addParticipant(itemToAdd: any): Observable<Customer> {
+  public addTransaction(itemToAdd: any): Observable<FundTransfer> {
     return this.dataService.add(this.NAMESPACE, itemToAdd);
   }
 
-  public updateParticipant(id: any, itemToUpdate: any): Observable<Customer> {
+  public updateTransaction(id: any, itemToUpdate: any): Observable<FundTransfer> {
     return this.dataService.update(this.NAMESPACE, id, itemToUpdate);
   }
 
-  public deleteParticipant(id: any): Observable<Customer> {
+  public deleteTransaction(id: any): Observable<FundTransfer> {
     return this.dataService.delete(this.NAMESPACE, id);
   }
 
 }
+
